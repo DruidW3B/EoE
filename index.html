@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echoes of the Enclave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --abyss:#1b142f;
+    --abyss-bottom:#130e23;
+    --panel:#261d42;
+    --panel-edge:rgba(213,196,150,.22);
+    --brass:#cdb488;
+    --brass-bright:#ecdcb2;
+    --bone:#ece4d0;
+    --seafoam:#a794c4;
+    --rule:rgba(213,196,150,.28);
+    --code-bg:#170f2b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:radial-gradient(120% 80% at 50% -10%, #362a5e 0%, var(--abyss) 42%, var(--abyss-bottom) 100%);
+    color:var(--bone);
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding:56px 20px 96px;
+  }
+  .sheet{max-width:780px;margin:0 auto}
+
+  /* Masthead */
+  .eyebrow{
+    font-family:"IM Fell English SC",serif;
+    letter-spacing:.42em;text-transform:uppercase;font-size:.72rem;
+    color:var(--seafoam);text-align:center;margin:0 0 .9rem;padding-left:.42em;
+  }
+  .masthead{
+    font-family:"IM Fell English SC",serif;text-align:center;
+    font-size:clamp(2.6rem,8vw,4.4rem);line-height:.95;
+    color:var(--brass-bright);margin:0;text-shadow:0 1px 0 rgba(0,0,0,.5);
+  }
+  .divider{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin:1.6rem auto 0;max-width:420px;color:var(--brass);
+  }
+  .divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
+  .divider .mark{font-size:.7rem;transform:rotate(45deg);opacity:.85}
+  .lede{
+    text-align:center;font-style:italic;color:var(--seafoam);
+    font-size:1rem;margin:1.1rem auto 0;max-width:560px;
+  }
+
+  /* Session accordion */
+  .log{margin-top:3.4rem;display:flex;flex-direction:column;gap:14px}
+  details.session{
+    border:1px solid var(--panel-edge);border-radius:3px;
+    background:linear-gradient(180deg,var(--panel),#1e1737);
+    overflow:hidden;
+  }
+  details.session > summary{
+    list-style:none;cursor:pointer;
+    padding:1.1rem 1.3rem;
+    display:flex;align-items:center;gap:1rem;
+    transition:background .2s ease;user-select:none;
+  }
+  details.session > summary::-webkit-details-marker{display:none}
+  details.session > summary:hover{background:rgba(213,196,150,.06)}
+  details.session > summary:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+  .summary-text{flex:1;min-width:0}
+  .ord{
+    font-family:"IM Fell English SC",serif;
+    letter-spacing:.2em;text-transform:uppercase;font-size:.66rem;
+    color:var(--seafoam);display:block;margin-bottom:.18rem;
+  }
+  .title{
+    font-family:"IM Fell English",serif;font-size:1.4rem;line-height:1.1;
+    color:var(--brass-bright);
+  }
+  .chev{
+    flex:0 0 auto;font-family:"EB Garamond",serif;font-size:1.3rem;
+    color:var(--brass);transition:transform .25s ease;
+  }
+  details.session[open] > summary .chev{transform:rotate(180deg)}
+
+  /* Empty sessions */
+  details.empty .title{color:rgba(236,228,208,.4)}
+  .empty-body{padding:0 1.3rem 1.3rem;color:var(--seafoam);font-style:italic;font-size:.92rem}
+
+  /* Session body */
+  .session-body{padding:.4rem 1.3rem 1.5rem;border-top:1px solid rgba(213,196,150,.12)}
+  .scene{margin-top:1.6rem}
+  .scene:first-child{margin-top:.6rem}
+  .scene h3{
+    font-family:"IM Fell English",serif;font-weight:400;
+    font-size:1.2rem;color:var(--brass-bright);margin:0 0 .3rem;
+    display:flex;align-items:baseline;gap:.55rem;
+  }
+  .scene h3::before{content:"";width:16px;height:1px;background:var(--brass);transform:translateY(-.35em)}
+  .scene ul{list-style:none;margin:.3rem 0 0;padding:0}
+  .scene li{
+    position:relative;padding:.26rem 0 .26rem 1.35rem;
+    border-bottom:1px solid rgba(213,196,150,.08);
+  }
+  .scene li:last-child{border-bottom:none}
+  .scene li::before{content:"";position:absolute;left:.2rem;top:1.02em;width:5px;height:5px;background:var(--brass);transform:rotate(45deg)}
+  .scene li em.gap{color:var(--seafoam);font-style:italic}
+  .scene ul.sub{margin:.4rem 0 .1rem;padding-left:.3rem}
+  .scene ul.sub li{border-bottom:none;padding:.12rem 0 .12rem 1.1rem;font-size:.96em}
+  .scene ul.sub li::before{top:.92em;width:4px;height:4px;background:var(--seafoam);opacity:.85}
+  .endnote{
+    margin-top:1.8rem;padding-top:.9rem;
+    border-top:1px solid rgba(213,196,150,.14);
+    font-family:"IM Fell English",serif;font-style:italic;
+    color:var(--brass);font-size:.95rem;text-align:right;
+  }
+  .tldr{
+    margin:.4rem 0 1.9rem;padding:.95rem 1.1rem;
+    border-left:2px solid var(--brass);
+    background:rgba(213,196,150,.06);border-radius:0 3px 3px 0;
+  }
+  .tldr .tldr-label{
+    display:block;font-family:"IM Fell English SC",serif;
+    letter-spacing:.2em;text-transform:uppercase;font-size:.66rem;
+    color:var(--seafoam);margin-bottom:.4rem;
+  }
+  .tldr p{margin:0}
+  .tldr .level{margin-top:.55rem;font-style:italic;color:var(--brass);font-size:.9rem}
+  .verse{margin:.5rem 0 .3rem 1.35rem;padding:.55rem 0 .55rem 1.1rem;border-left:2px solid var(--seafoam);font-style:italic;color:var(--bone)}
+  .verse p{margin:0;line-height:1.75}
+
+  /* Markup disclosure (nested) */
+  details.markup{
+    margin-top:2rem;border:1px solid var(--panel-edge);border-radius:3px;
+    background:var(--code-bg);overflow:hidden;
+  }
+  details.markup > summary{
+    list-style:none;cursor:pointer;
+    font-family:"IM Fell English SC",serif;
+    letter-spacing:.16em;text-transform:uppercase;font-size:.74rem;
+    color:var(--brass-bright);
+    padding:.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    transition:background .2s ease;
+  }
+  details.markup > summary::-webkit-details-marker{display:none}
+  details.markup > summary:hover{background:rgba(213,196,150,.07)}
+  details.markup > summary:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+  details.markup[open] > summary .chev{transform:rotate(180deg)}
+  .markup-body{padding:0 1.1rem 1.1rem}
+  .markup-note{font-size:.86rem;color:var(--seafoam);font-style:italic;margin:.1rem 0 .9rem}
+  pre{
+    margin:0;background-color:#120b21;
+    border:1px solid rgba(213,196,150,.16);border-radius:3px;
+    padding:1rem 1.1rem;overflow:auto;color:var(--bone);
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:.8rem;line-height:1.55;white-space:pre;
+  }
+  .copy{
+    margin-top:.9rem;font-family:"IM Fell English SC",serif;
+    letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;
+    color:var(--abyss);background:var(--brass);border:none;border-radius:3px;
+    padding:.65rem 1.25rem;cursor:pointer;transition:background .18s ease,transform .05s ease;
+  }
+  .copy:hover{background:var(--brass-bright)}
+  .copy:active{transform:translateY(1px)}
+  .copy:focus-visible{outline:2px solid var(--brass-bright);outline-offset:2px}
+
+  .foot{text-align:center;margin-top:3.2rem;font-size:.84rem;color:var(--seafoam);font-style:italic}
+
+  @media (max-width:520px){
+    body{font-size:17px;padding:36px 14px 72px}
+    .title{font-size:1.25rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <main class="sheet">
+    <p class="eyebrow">Dungeon Master: Lucia</p>
+    <h1 class="masthead">Echoes of the Enclave</h1>
+    <div class="divider"><span class="line"></span><span class="mark">&#9670;</span><span class="line"></span></div>
+    <p class="lede">If you find inaccuracies, blame Web</p>
+
+    <section class="log">
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session Zero</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session I</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session II</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session III</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session IV</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session V</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session VI</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session VII</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session VIII</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session IX</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session X</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+
+    </section>
+
+    <p class="foot">Session Zero through Session X await their entries.</p>
+  </main>
+
+<script>
+  function copyMarkup(btn){
+    var text = document.getElementById(btn.getAttribute('data-target')).textContent;
+    var done = function(){
+      btn.textContent = 'Copied to log';
+      setTimeout(function(){ btn.textContent = 'Copy markup'; }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  }
+  function fallback(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.top = '-9999px';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); done(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+</script>
+</body>
+</html>
