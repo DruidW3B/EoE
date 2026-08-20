@@ -133,6 +133,52 @@
   .verse{margin:.5rem 0 .3rem 1.35rem;padding:.55rem 0 .55rem 1.1rem;border-left:2px solid var(--seafoam);font-style:italic;color:var(--bone)}
   .verse p{margin:0;line-height:1.75}
 
+  /* Lexicon tables */
+  .lex{width:100%;border-collapse:collapse;margin:.6rem 0 .2rem;font-size:.95rem}
+  .lex th{
+    font-family:"IM Fell English SC",serif;font-weight:400;
+    letter-spacing:.16em;text-transform:uppercase;font-size:.66rem;
+    color:var(--seafoam);text-align:left;
+    padding:.4rem .7rem .4rem 0;border-bottom:1px solid var(--rule);
+  }
+  .lex td{
+    padding:.42rem .7rem .42rem 0;vertical-align:top;
+    border-bottom:1px solid rgba(213,196,150,.08);
+  }
+  .lex tr:last-child td{border-bottom:none}
+  .lex td:first-child{color:var(--brass-bright);font-style:italic;white-space:nowrap}
+  .lex.plain td:first-child{font-style:normal;white-space:normal}
+
+  /* Character database */
+  .grouphead{
+    font-family:"IM Fell English SC",serif;font-weight:400;
+    font-size:1.35rem;color:var(--brass-bright);
+    margin:2.2rem 0 .2rem;padding-bottom:.3rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .grouphead:first-child{margin-top:.8rem}
+  .scene h3 .role{
+    font-family:"EB Garamond",serif;font-size:.85rem;
+    font-style:italic;color:var(--seafoam);font-weight:400;
+  }
+  details.char{
+    border:1px solid rgba(213,196,150,.12);border-radius:3px;
+    background:rgba(213,196,150,.03);margin-top:10px;overflow:hidden;
+  }
+  details.char > summary{
+    list-style:none;cursor:pointer;
+    padding:.65rem .9rem;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    transition:background .2s ease;user-select:none;
+  }
+  details.char > summary::-webkit-details-marker{display:none}
+  details.char > summary:hover{background:rgba(213,196,150,.06)}
+  details.char > summary:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+  details.char > summary h3{margin:0;font-size:1.15rem;flex-wrap:wrap}
+  details.char .chev{font-size:1.1rem}
+  details.char[open] > summary .chev{transform:rotate(180deg)}
+  .char-body{padding:.1rem .9rem .85rem}
+
   /* Markup disclosure (nested) */
   details.markup{
     margin-top:2rem;border:1px solid var(--panel-edge);border-radius:3px;
@@ -187,7 +233,452 @@
 
     <section class="log">
 
-      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session Zero</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
+      <details class="session">
+        <summary><span class="summary-text"><span class="ord">Appendix</span><span class="title">Characters</span></span><span class="chev">&#9662;</span></summary>
+        <div class="session-body">
+
+          <p class="grouphead">Player Characters</p>
+
+          <details class="char scene">
+            <summary><h3>Sebastian <span class="role">&mdash; Half-Elf Sorcerer / Rogue (Storm Sorcery) &middot; played by SerpentDenial</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Warden Kin; nomadic, mobile combatant.</li>
+              <li>Grew up in the Crystal Ward. Rich farmers.</li>
+              <li>Was not in the Crystal Ward when the dome formed, and so got locked out because of the bubble.</li>
+              <li>Lived as a forest hermit during the dark days.</li>
+              <li>After the darkness, he investigated the bubble of the Crystal Ward.</li>
+              <li>During the later stages of the investigation, he joined the Warden Kin to help the investigation.</li>
+              <li>Very nomadic.</li>
+              <li>Repairs his own clothing, and has shabby noble garbs as a result of his history and lifestyle.</li>
+              <li>Very charming (allegedly).</li>
+              <li>Very mobile combat abilities.</li>
+              <li>The only thing that is not dirty is his Warden Kin brooch.</li>
+              <li>Currently keeps Nimbus under his care.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Niamh "Flamme" Callahan <span class="role">&mdash; Human Sorcerer (Draconic Sorcery) &middot; played by pabaptista</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Tanky sorcerer from Eberron; carries an aberrant dragonmark.</li>
+              <li>From Sharn, of house Darkanon.</li>
+              <li>After cleaning up the corruption in Sharn, all the houses became very apprehensive towards any further corruption, and likely towards the Amaroon Enclave.</li>
+              <li>In order to investigate their own mysterious wasteland, they sent Niamh's father to investigate every year since.</li>
+              <li>On the last mission, he went missing. Niamh's father is named Nemo.</li>
+              <li>Niamh received a very cryptic message to go and look for him in the Seven Hills.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Callista Lehane <span class="role">&mdash; Changeling Rogue (Arcane Trickster) &middot; played by EgyptianEnchantress6891</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Monster hunter from Eberron.</li>
+              <li>Her land is ruled by three hags called the Daughters of Sora Kell, in the Shadow Marshes.</li>
+              <li>It's a land of monsters. Her family was very powerful diplomatically and owned a magic apothecary.</li>
+              <li>However, they were pushed out of power by the hags. Now they can't use magic and are under surveillance.</li>
+              <li>She had a premonition of the cloud and of the mushroom, and headed off to see what that dream meant.</li>
+              <li>She is still somewhat in touch with her family.</li>
+              <li>She makes her way through Droaam, and as she travels she learns her family's magic.</li>
+              <li>While traveling via train during her first year traveling, she meets in Sharn with a noble family to use the portal to Waterdeep. She met the previous party of Waterdeep.</li>
+              <li>In Waterdeep she was accompanied by Linus to Lissabon.</li>
+              <li>She now works as a monster hunter.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Vhaeril "Ash" <span class="role">&mdash; Tiefling Sorcerer (Wild Magic Sorcery) &middot; played by Maelkar</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Nomadic hermit.</li>
+              <li>Born and grew up on the Diamond Shore (now the Shadow Shores).</li>
+              <li>After the event she became infused with magic and began growing horns on her head. She has a weird pressure in her head.</li>
+              <li>As a result of feeling oppressed based on her wild magic sorcery and her horns, she became a nomadic hermit.</li>
+              <li>She comes to find out Waterdeep is not affected by the boom, and is looking to travel there so she doesn't feel discriminated against.</li>
+              <li>She's come back as a result of a message to meet up with some of the other members of the party.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Nimbus <span class="role">&mdash; Gnome Cleric / Wizard (School of Enchantment) &middot; played by Web (PainfulW3B)</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Raised in an isolated, bioluminescent forest village.</li>
+              <li>Was banished after his little brother Lembas went missing on a dare and Nimbus confessed the truth to his parents.</li>
+              <li>Wandering the dangerous woods, he encountered a group of adventurers called the Goldblooms, who had rescued Lembas.</li>
+              <li>In gratitude, Nimbus joined their journey to escape the realm, traveling through perilous forests and arid deserts filled with hostile Vurmi.</li>
+              <li>An enigmatic figure known as The Pharaoh directed them through a stone gateway.</li>
+              <li>Crossing the threshold separated Nimbus from his party and hurled him through time and space, briefly landing in the bedroom of a powerful "goddess" child who gifted him a coat and a light-up heart pendant before ultimately dropping him into his next destination.</li>
+              <li>He was teleported across space and time to the Shadow Shores, where he found shelter with a local family who cared for him and adored his unique nature as an adorable, walking night light that brought comfort through the long night.</li>
+              <li>As the family faced growing scrutiny and unwanted investigations from PIDE due to the attention Nimbus attracted, they moved away from the Shadow Shores.</li>
+              <li>To protect the family, Nimbus agreed to transfer into the care of Sebastian, a traveling noble, where he remains under his keep.</li>
+            </ul>
+            </div>
+          </details>
+
+          <p class="grouphead">Factions</p>
+
+          <details class="char scene">
+            <summary><h3>The Amaroon Enclave</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Fell in Waterdeep five years ago, the same evening as the Event; current location unknown.</li>
+              <li>Previously led by Etrian, who was killed by the previous party of Waterdeep.</li>
+              <li>Old rumours about the Enclave, its connections beyond Faer&ucirc;n, and the source of the Longest Night have begun to surface once more.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Warden Kin</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>A sister faction of the Amaroon Enclave, born of a distaste for the actions of the Amaroon Enclave.</li>
+              <li>Very involved with the community and eager to improve their reputation.</li>
+              <li>Sebastian is a member; his brooch is the one clean thing he owns.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>PIDE <span class="role">&mdash; Protection of Intellect and Data Enclave</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Works similar to the CIA: it oversees the flow of any information and does all the investigating.</li>
+              <li>Claims its surveillance and restrictions are necessary to keep the population safe from the magical aftermath of the Longest Night.</li>
+              <li>Scarred objects are disappearing into official custody, and people who ask the wrong questions are watched, discouraged, or simply vanish from public view.</li>
+              <li>Its investigations into Nimbus's host family drove them from the Shadow Shores.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Orders Gauntlet</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Operates the international port in Arr&aacute;bida.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Emerald Enclave</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Based in Arr&aacute;bida.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Warden Enclave</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Based in Arr&aacute;bida.</li>
+            </ul>
+            </div>
+          </details>
+
+          <p class="grouphead">NPCs</p>
+
+          <details class="char scene">
+            <summary><h3>Etrian <span class="role">&mdash; previous leader of the Amaroon Enclave</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>The main antagonist of the previous campaign, and the previous leader of the Amaroon Enclave.</li>
+              <li>Killed by the previous party of Waterdeep.</li>
+              <li>The kill switch bomb that caused the Event was his device; Zircon has its blueprint.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Nemo <span class="role">&mdash; Niamh's father</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Sent from Sharn every year to investigate a mysterious wasteland.</li>
+              <li>Went missing on his last mission; the cryptic message pointing Niamh to the Seven Hills concerns him.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Lembas <span class="role">&mdash; Nimbus's little brother</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Went missing on a dare in their home forest; Nimbus's confession of the truth led to his banishment.</li>
+              <li>Was rescued by the Goldblooms.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The "Goddess" Child</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>A powerful child in whose bedroom Nimbus briefly landed while hurled through time and space.</li>
+              <li>Gifted Nimbus a coat and a light-up heart pendant before dropping him into his next destination.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Shadow Shores Family</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Sheltered Nimbus after his arrival and adored him as an adorable, walking night light through the long night.</li>
+              <li>Drew growing scrutiny and unwanted PIDE investigations from the attention Nimbus attracted, and moved away; Nimbus passed into Sebastian's care to protect them.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Linus</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Accompanied Callista from Waterdeep to Lissabon.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Daughters of Sora Kell <span class="role">&mdash; three hags</span></h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Rule Callista's homeland.</li>
+              <li>Pushed Callista's family out of power; the family now cannot use magic and is under surveillance.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>Zircon</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Has the blueprint for the kill switch device that caused the Event.</li>
+            </ul>
+            </div>
+          </details>
+
+          <details class="char scene">
+            <summary><h3>The Previous Party of Waterdeep</h3><span class="chev">&#9662;</span></summary>
+            <div class="char-body">
+            <ul>
+              <li>Met Callista in Sharn while she was arranging portal travel to Waterdeep.</li>
+              <li>Killed Etrian, the previous leader of the Amaroon Enclave.</li>
+            </ul>
+            </div>
+          </details>
+
+        </div>
+      </details>
+
+      <details class="session">
+        <summary><span class="summary-text"><span class="ord">Session Zero</span><span class="title">The Longest Night</span></span><span class="chev">&#9662;</span></summary>
+        <div class="session-body">
+
+          <div class="tldr">
+            <span class="tldr-label">TL;DR</span>
+            <p>Session Zero sets the stage. Five years ago the Amaroon Enclave fell in Waterdeep, and on the same evening Etrian's kill switch device detonated over the Seven Hills, a Lisbon-inspired region twenty miles south. The Longest Night held the region beneath a violet veil for 77 hours, killed no one, and left behind permanent twilight, unstable magic, haunted landmarks, and the objects called Arcane Scars. Five years on, PIDE's surveillance state tightens in the north while the south survives on community, and old questions about the Enclave and the source of the Longest Night are surfacing again. -Claude</p>
+            <p class="level">Party at level 5.</p>
+          </div>
+
+          <div class="scene">
+            <h3>Campaign Setup</h3>
+            <ul>
+              <li>Characters start with a magic or rare item.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>What in the Seven Hills? (DM Notes)</h3>
+            <p>Five years ago, the Amaroon Enclave fell in Waterdeep.</p>
+            <p>On the same summer evening, far to the south, the Seven Hills went dark. A blinding flash rose beyond the Tagus. The shockwave knocked people from their feet, shattered windows, and silenced a region in an instant. Then came the darkness: a violet-black veil that swallowed the sky and held the Seven Hills beneath it for seventy-seven hours. No one died.</p>
+            <p>That is the part no one can explain. For three days and three nights, the world became strange and still. People gathered in homes, taverns, temples, warehouses, and public squares. They waited together beneath a sky without stars or sun, listening to an unfamiliar hum in their dreams and hoping the light would return.</p>
+            <p>When it did, the Seven Hills had changed.</p>
+            <p>The western coast was left in permanent twilight. Forests began growing in impossible shapes. Patches of land became unstable, where magic flickered, memory failed, and the world itself seemed unsure how it was meant to behave. Strange objects&mdash;later called Arcane Scars&mdash;began turning up in homes, markets, ruins, and the hands of people who could not explain where they had found them.</p>
+            <p>The Longest Night ended.</p>
+            <p>Its echo did not.</p>
+          </div>
+
+          <div class="scene">
+            <h3>The Event</h3>
+            <ul>
+              <li>A mushroom cloud erupted roughly 20 miles south of Waterdeep, in the region known as the Seven Hills.</li>
+              <li>Some kind of moonstone explosion, as a result of identifying the shard.</li>
+              <li>Etrian's kill switch bomb; Zircon has the blueprint for the device.</li>
+              <li>The mushroom cloud did not cause any casualties. It just caused crazy things to happen: miscasting of spells, creatures of different planes of existence.</li>
+              <li>A purple shimmering mist covered the entire region for 77 hours.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>The Lay of the Land (DM Notes)</h3>
+            <p>The Seven Hills lies south of Waterdeep, where the broad Tagus meets the Sword Coast. It is a region divided by water, history, and increasingly by politics.</p>
+            <p>To the north stands Lissabon, the great city of seven hills: crowded streets, grand squares, harbours, noble houses, guild interests, and watchful authority. Once the region&rsquo;s unquestioned heart, it has become a place of permits, checkpoints, data collection, and carefully managed public order. The Protection of Intellect and Data Enclave&mdash;PIDE&mdash;claims that its surveillance and restrictions are necessary to keep the population safe from the magical aftermath of the Longest Night.</p>
+            <p>West of the capital lie the green hills of Sintra and the coastal splendour of the Crystal Ward, where a glittering dome of unknown origin still imprisons part of the shoreline. Across the Tagus, the southern peninsula tells a different story.</p>
+            <p>Almada clings to the riverbank beneath the great bridge. The Clay Bay smokes with industry, labour, shipyards, and stubborn community. Beyond it stretch the darkened cliffs of the Shadow Shores, the unstable wilds of the Axium Forest, and the forested mountains of Arr&aacute;bida&mdash;where few people willingly travel, and fewer return with the same certainty about what they saw.</p>
+            <p>The north speaks of order.</p>
+            <p>The south speaks of survival.</p>
+            <p>Between them flows the Tagus, carrying trade, rumours, refugees, secrets, and the quiet understanding that the Seven Hills is becoming two different worlds.</p>
+          </div>
+
+          <div class="scene">
+            <h3>The Districts</h3>
+            <ul>
+              <li>A region of seven districts located 20 miles south of Waterdeep. Inspired by real-life Lisbon.</li>
+              <li>Crystal Ward:
+                <ul class="sub">
+                  <li>A dome was created over the region of the Crystal Ward after the mist, and possibly as a result of it.</li>
+                  <li>The only way in or out is through a portal system, mainly used for food.</li>
+                </ul>
+              </li>
+              <li>The Shadow Shores (formerly the Diamond Shores):
+                <ul class="sub">
+                  <li>Went from a luxury spot to a place of eternal darkness, as a result of the mist shroud in the sky, even after five years.</li>
+                  <li>Most inhabitants left the Shadow Shores for other regions.</li>
+                </ul>
+              </li>
+              <li>Almada:
+                <ul class="sub">
+                  <li>Mostly a fishing town.</li>
+                  <li>A very important port city.</li>
+                </ul>
+              </li>
+              <li>Arr&aacute;bida:
+                <ul class="sub">
+                  <li>Home of the Emerald Enclave and the Warden Enclave.</li>
+                  <li>Mainly a mountain range. Basically Maine.</li>
+                  <li>Has an international port to travel from, operated by the Orders Gauntlet.</li>
+                </ul>
+              </li>
+              <li>Remaining three districts: not yet named.</li>
+              <li>Region-wide: many of the historic palaces and landmarks are now haunted.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>The Echoes Remain (DM Notes)</h3>
+            <p>Five years is long enough for a disaster to become routine.</p>
+            <p>People rebuild. Children grow up knowing which roads are unsafe after dark. Markets learn which Scar-touched objects are worth money and which ones whisper when no one is listening. Families adapt to strange weather, distorted memories, and the occasional patch of reality that refuses to behave. PIDE expands its reach in the name of protection. Communities south of the river endure because they have one another.</p>
+            <p>But something is changing. Arcane disturbances are becoming harder to ignore. Scarred objects are disappearing into official custody. People who ask the wrong questions are watched, discouraged, or simply vanish from public view. Old rumours about the Amaroon Enclave, its connections beyond Faer&ucirc;n, and the source of the Longest Night have begun to surface once more.</p>
+            <p>The Seven Hills has lived with the consequences of the past for five years. Now it must decide what to do with them.</p>
+            <p>What truly caused the Longest Night? Why did no one die beneath its impossible darkness? What are the Arcane Scars&mdash;and why does PIDE want them? What did the Amaroon Enclave leave behind?</p>
+            <p>And if the region is still changing, how much of the Seven Hills can be lost before it is no longer home?</p>
+          </div>
+
+          <div class="scene">
+            <h3>The Present Day</h3>
+            <ul>
+              <li>Nobody knows much.</li>
+              <li>Nobody knows where the Amaroon Enclave is.</li>
+              <li>PIDE is working similar to the CIA: it oversees the flow of any information and does all the investigating.</li>
+              <li>The government is a democratically elected right-wing authoritarian government with a good amount of surveillance.</li>
+            </ul>
+          </div>
+
+          <p class="endnote">Ended session at level 5.</p>
+
+          <details class="markup">
+            <summary>Reveal Discord markup <span class="chev">&#9662;</span></summary>
+            <div class="markup-body">
+              <p class="markup-note">Copy this and paste straight into Discord.</p>
+<pre id="md-0">## Session 0: The Longest Night
+&gt; **TL;DR:** Session Zero sets the stage. Five years ago the Amaroon Enclave fell in Waterdeep, and on the same evening Etrian's kill switch device detonated over the Seven Hills, a Lisbon-inspired region twenty miles south. The Longest Night held the region beneath a violet veil for 77 hours, killed no one, and left behind permanent twilight, unstable magic, haunted landmarks, and the objects called Arcane Scars. Five years on, PIDE's surveillance state tightens in the north while the south survives on community, and old questions about the Enclave and the source of the Longest Night are surfacing again. -Claude
+&gt; **Level:** 5
+
+### Campaign Setup
+- Characters start with a magic or rare item.
+
+### What in the Seven Hills? (DM Notes)
+Five years ago, the Amaroon Enclave fell in Waterdeep.
+
+On the same summer evening, far to the south, the Seven Hills went dark. A blinding flash rose beyond the Tagus. The shockwave knocked people from their feet, shattered windows, and silenced a region in an instant. Then came the darkness: a violet-black veil that swallowed the sky and held the Seven Hills beneath it for seventy-seven hours. No one died.
+
+That is the part no one can explain. For three days and three nights, the world became strange and still. People gathered in homes, taverns, temples, warehouses, and public squares. They waited together beneath a sky without stars or sun, listening to an unfamiliar hum in their dreams and hoping the light would return.
+
+When it did, the Seven Hills had changed.
+
+The western coast was left in permanent twilight. Forests began growing in impossible shapes. Patches of land became unstable, where magic flickered, memory failed, and the world itself seemed unsure how it was meant to behave. Strange objects—later called Arcane Scars—began turning up in homes, markets, ruins, and the hands of people who could not explain where they had found them.
+
+The Longest Night ended.
+
+Its echo did not.
+
+### The Event
+- A mushroom cloud erupted roughly 20 miles south of Waterdeep, in the region known as the Seven Hills.
+- Some kind of moonstone explosion, as a result of identifying the shard.
+- Etrian's kill switch bomb; Zircon has the blueprint for the device.
+- The mushroom cloud did not cause any casualties. It just caused crazy things to happen: miscasting of spells, creatures of different planes of existence.
+- A purple shimmering mist covered the entire region for 77 hours.
+
+### The Lay of the Land (DM Notes)
+The Seven Hills lies south of Waterdeep, where the broad Tagus meets the Sword Coast. It is a region divided by water, history, and increasingly by politics.
+
+To the north stands Lissabon, the great city of seven hills: crowded streets, grand squares, harbours, noble houses, guild interests, and watchful authority. Once the region's unquestioned heart, it has become a place of permits, checkpoints, data collection, and carefully managed public order. The Protection of Intellect and Data Enclave—PIDE—claims that its surveillance and restrictions are necessary to keep the population safe from the magical aftermath of the Longest Night.
+
+West of the capital lie the green hills of Sintra and the coastal splendour of the Crystal Ward, where a glittering dome of unknown origin still imprisons part of the shoreline. Across the Tagus, the southern peninsula tells a different story.
+
+Almada clings to the riverbank beneath the great bridge. The Clay Bay smokes with industry, labour, shipyards, and stubborn community. Beyond it stretch the darkened cliffs of the Shadow Shores, the unstable wilds of the Axium Forest, and the forested mountains of Arrábida—where few people willingly travel, and fewer return with the same certainty about what they saw.
+
+The north speaks of order.
+
+The south speaks of survival.
+
+Between them flows the Tagus, carrying trade, rumours, refugees, secrets, and the quiet understanding that the Seven Hills is becoming two different worlds.
+
+### The Districts
+- A region of seven districts located 20 miles south of Waterdeep. Inspired by real-life Lisbon.
+- Crystal Ward:
+  - A dome was created over the region of the Crystal Ward after the mist, and possibly as a result of it.
+  - The only way in or out is through a portal system, mainly used for food.
+- The Shadow Shores (formerly the Diamond Shores):
+  - Went from a luxury spot to a place of eternal darkness, as a result of the mist shroud in the sky, even after five years.
+  - Most inhabitants left the Shadow Shores for other regions.
+- Almada:
+  - Mostly a fishing town.
+  - A very important port city.
+- Arrábida:
+  - Home of the Emerald Enclave and the Warden Enclave.
+  - Mainly a mountain range. Basically Maine.
+  - Has an international port to travel from, operated by the Orders Gauntlet.
+- Remaining three districts: not yet named.
+- Region-wide: many of the historic palaces and landmarks are now haunted.
+
+### The Echoes Remain (DM Notes)
+Five years is long enough for a disaster to become routine.
+
+People rebuild. Children grow up knowing which roads are unsafe after dark. Markets learn which Scar-touched objects are worth money and which ones whisper when no one is listening. Families adapt to strange weather, distorted memories, and the occasional patch of reality that refuses to behave. PIDE expands its reach in the name of protection. Communities south of the river endure because they have one another.
+
+But something is changing. Arcane disturbances are becoming harder to ignore. Scarred objects are disappearing into official custody. People who ask the wrong questions are watched, discouraged, or simply vanish from public view. Old rumours about the Amaroon Enclave, its connections beyond Faerûn, and the source of the Longest Night have begun to surface once more.
+
+The Seven Hills has lived with the consequences of the past for five years. Now it must decide what to do with them.
+
+What truly caused the Longest Night? Why did no one die beneath its impossible darkness? What are the Arcane Scars—and why does PIDE want them? What did the Amaroon Enclave leave behind?
+
+And if the region is still changing, how much of the Seven Hills can be lost before it is no longer home?
+
+### The Present Day
+- Nobody knows much.
+- Nobody knows where the Amaroon Enclave is.
+- PIDE is working similar to the CIA: it oversees the flow of any information and does all the investigating.
+- The government is a democratically elected right-wing authoritarian government with a good amount of surveillance.
+
+*Ended session at level 5.*</pre>
+              <button class="copy" type="button" data-target="md-0" onclick="copyMarkup(this)">Copy markup</button>
+            </div>
+          </details>
+
+        </div>
+      </details>
+
+      <details class="session empty"><summary><span class="summary-text"><span class="ord">Session 0.5</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
 
       <details class="session empty"><summary><span class="summary-text"><span class="ord">Session I</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
 
@@ -209,9 +700,314 @@
 
       <details class="session empty"><summary><span class="summary-text"><span class="ord">Session X</span><span class="title">Log not yet recorded</span></span><span class="chev">&#9662;</span></summary><div class="empty-body">No entry yet. Send the notes and this voyage gets charted.</div></details>
 
+      <details class="session">
+        <summary><span class="summary-text"><span class="ord">Appendix</span><span class="title">Thalume ("dome-light")</span></span><span class="chev">&#9662;</span></summary>
+        <div class="session-body">
+
+          <p style="margin:.8rem 0 0;font-style:italic;color:var(--seafoam)">The tongue of the glowcap folk of the Veiled Forest, spoken by perhaps a few hundred individuals and never heard beyond the treeline. Spoken by Nimbus and his brother Lembas.</p>
+
+          <div class="scene">
+            <h3>Three Channels, One Language</h3>
+            <ul>
+              <li>Every full utterance in Thalume uses all three at once, the way humans use words, tone, and facial expression:
+                <ul class="sub">
+                  <li><strong>The Bloom (light).</strong> Meaning lives in patterns pulsed across the dome. Vocabulary is spatial: a word is a shape of light, its position on the dome acting like a case marking. Something displayed at the crown is a subject; something rippling toward the rim is an object or destination.</li>
+                  <li><strong>The Hum (sound).</strong> A soft resonance from the bell rim carries the grammar: tense, mood, and emotional register. The rim lights flicker in time with it, like a visible metronome.</li>
+                  <li><strong>The Thread (touch).</strong> Tendril-to-tendril contact is the intimate register of exact thoughts, used for true names, grief, and anything not meant for the wider grove. Two glowcaps with intertwined tendrils are having a private conversation in the middle of a public one. The more public display of this form of language is telepathic communication done at a distance, which is more formal and used for communicating with outsiders.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>Phonology</h3>
+            <ul>
+              <li>Because glowcaps have no hard mouthparts, the hummed component has no plosives at all: no <em>p, b, t, d, k,</em> or <em>g</em>. Everything is made of soft continuants (<em>m, n, l, s, sh, th, v, w, h</em>) and long vowels.</li>
+              <li>Doubled vowels mark intensity or brightness: <em>milu</em> is "light," <em>miluu</em> is "blazing light."</li>
+              <li>The overall sound is somewhere between wind chimes and a cat's purr.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>Tense Is a Color, Not a Word</h3>
+            <table class="lex plain">
+              <thead><tr><th>Tense</th><th>Color</th><th>Transcription prefix</th></tr></thead>
+              <tbody>
+                <tr><td>Past</td><td>Amber</td><td><em>aa-</em></td></tr>
+                <tr><td>Present</td><td>Blue-white</td><td><em>ee-</em></td></tr>
+                <tr><td>Future</td><td>Violet</td><td><em>yy-</em></td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li>A glowcap describing something that never happened and never will simply goes dark mid-sentence.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>There Is No Word for "I"</h3>
+            <ul>
+              <li>The smallest pronoun is <em>venn</em>, "we-of-two": an acknowledgment of oneness in connection during telepathic communication.</li>
+              <li>Glowcaps bud in sibling pairs and think of themselves as half of something. Nimbus, speaking of himself, would literally say "the Nimbus-half of <em>venn</em>."</li>
+              <li>A glowcap whose sibling has died uses the mourning pronoun <em>ven-hollo</em>, "we-of-two, one dark," for the rest of their life.</li>
+              <li>This makes "brother" nearly redundant in Thalume; the language assumes it.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>There Is No Word for a Lie</h3>
+            <ul>
+              <li>Because of the abundance of telepathic communication, lying is nonexistent and nearly impossible to conceive for a glowcap.</li>
+              <li>They don't understand the purpose of a lie and see it merely as an inaccuracy, a sign of foolishness and ineffective communication. At that point, you might as well take the time and effort to read each other's minds.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>Lexicon</h3>
+            <table class="lex">
+              <thead><tr><th>Word</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>venn</td><td>we-of-two (basic pronoun)</td></tr>
+                <tr><td>shessa</td><td>the grove-mind; everyone currently in light-range</td></tr>
+                <tr><td>milu / miluu</td><td>light / brilliant light</td></tr>
+                <tr><td>hollo</td><td>darkness, absence; also silence</td></tr>
+                <tr><td>thal</td><td>the dome or cap; by extension, the self's "face"</td></tr>
+                <tr><td>ume</td><td>a pulse, a spoken thing, a word</td></tr>
+                <tr><td>nimm</td><td>rain-haze, the soft glow of mist (root of Nimbus's name)</td></tr>
+                <tr><td>lemm</td><td>nourishment shared freely, a gift of food (root of Lembas's name)</td></tr>
+                <tr><td>sylvenn</td><td>the forest, literally "the many-of-two"</td></tr>
+                <tr><td>wesshi</td><td>a stranger, literally "one whose light we cannot read"</td></tr>
+                <tr><td>hallume</td><td>a story, literally "dark-and-light," since stories require both</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="scene">
+            <h3>Sample Phrases</h3>
+            <ul>
+              <li>Greeting a friend:
+                <div class="verse"><p><em>Miluu venn shessa</em> — "Brightly we-of-two join the grove."<br>Delivered as a slow double-pulse at the crown of the dome, warm rim-hum, one tendril extended.</p></div>
+              </li>
+              <li>Greeting a stranger (<em>wesshi</em>):
+                <div class="verse"><p><em>Aa-milu?</em> — Roughly, "Was your light ever seen here before?"<br>A cautious single pulse, low and amber.</p></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>Writing</h3>
+            <ul>
+              <li>Thalume script mimics the body: vertical hanging lines (tendrils) strung with dots and knots (light beads), read top to bottom.</li>
+              <li>A written word looks like a strand of tendrils with lights caught in it.</li>
+              <li>Books are woven curtains; reading one properly means running a tendril down each strand, so the script is as much braille as text.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>True Names</h3>
+            <ul>
+              <li>True names are the one thing never spoken aloud. Each glowcap's true name is the constellation displayed inside their dome, unique from budding, and it can only be given by touch.</li>
+              <li>"Nimbus" and "Lembas" are just the pronounceable outer names; their real names are star maps only each other has fully read.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>The Echo Principle</h3>
+            <ul>
+              <li>Glowcaps do not have flat words for "yes" and "no." Answers are built on echoing:
+                <ul class="sub">
+                  <li><strong>Agreement</strong> means catching the asker's light pattern and pulsing it back brighter. Enthusiastic agreement returns the pattern brighter and faster.</li>
+                  <li><strong>Refusal or denial</strong> means letting the asker's pattern land on your dome and fade to dark without an echo.</li>
+                  <li><strong>Uncertainty</strong> is a broken, flickering half-echo.</li>
+                </ul>
+              </li>
+              <li>The spoken words below accompany these light responses; among glowcaps the echo alone is often enough.</li>
+            </ul>
+          </div>
+
+          <div class="scene">
+            <h3>New Vocabulary</h3>
+            <table class="lex">
+              <thead><tr><th>Word</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>illa</td><td>question marker; a spiral pulse plus rising hum, opens any question</td></tr>
+                <tr><td>navv</td><td>to drift toward, to come</td></tr>
+                <tr><td>sull</td><td>to drift away, to leave</td></tr>
+                <tr><td>hesh</td><td>to rest, to furl one's tendrils; sleep</td></tr>
+                <tr><td>voss</td><td>to eat, to take food (contrast <em>lemm</em>, food freely given)</td></tr>
+                <tr><td>luvv</td><td>the heart-glow; the light at the center of the body</td></tr>
+                <tr><td>luvenn</td><td>two heart-glows pulsing in sync; love, deep bond</td></tr>
+                <tr><td>nesh</td><td>soon, nearly, almost within light-range</td></tr>
+                <tr><td>ollu</td><td>again, once more, re-echo</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="scene">
+            <h3>Common Answers</h3>
+            <table class="lex plain">
+              <thead><tr><th>Meaning</th><th>Thalume</th><th>Literal sense</th><th>Delivery</th></tr></thead>
+              <tbody>
+                <tr><td>Yes</td><td><em>Ee-milu</em></td><td>"It is lit"</td><td>Echo the asker's pattern, brighter</td></tr>
+                <tr><td>Emphatic yes</td><td><em>Ee-miluu</em></td><td>"It blazes"</td><td>Fast, brilliant echo across the whole dome</td></tr>
+                <tr><td>No</td><td><em>Ee-hollo</em></td><td>"It is dark"</td><td>Let the asker's pattern fade unanswered</td></tr>
+                <tr><td>Maybe</td><td><em>Milu-hollo</em></td><td>"Light-and-dark"</td><td>Flickering half-echo</td></tr>
+                <tr><td>I don't know</td><td><em>Ume wesshi venn</em></td><td>"The word is a stranger to us"</td><td>Slow dim ripple toward the rim</td></tr>
+                <tr><td>I understand</td><td><em>Milu navv venn</em></td><td>"The light reaches us"</td><td>Steady, calm echo at the crown</td></tr>
+                <tr><td>Say it again</td><td><em>Ollu, illa</em></td><td>"Again, asking"</td><td>Spiral pulse repeated twice</td></tr>
+                <tr><td>Wait</td><td><em>Hesh ume</em></td><td>"Rest the word"</td><td>Rim lights hold steady, dome goes still</td></tr>
+                <tr><td>Soon</td><td><em>Nesh, nesh</em></td><td>"Near, near"</td><td>Gentle pulses quickening in tempo</td></tr>
+                <tr><td>Never</td><td><em>Yy-hollo</em></td><td>"The future is dark"</td><td>Dome deliberately extinguished for one full breath, the gravest answer a glowcap can give</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="scene">
+            <h3>Everyday Phrases</h3>
+            <table class="lex plain">
+              <thead><tr><th>Meaning</th><th>Thalume</th><th>Literal sense</th><th>Delivery</th></tr></thead>
+              <tbody>
+                <tr><td>Come here</td><td><em>Navv venn</em></td><td>"Drift to us"</td><td>Crown-ward ripple, pulling light inward like a beckoning hand</td></tr>
+                <tr><td>I have to go</td><td><em>Sull venn, aa-lemm</em></td><td>"We drift away; it was a gift"</td><td>Rim-ward ripple, warm amber fade</td></tr>
+                <tr><td>Help!</td><td><em>Shessa! Hollo venn!</em></td><td>"Grove! We are dimming!"</td><td>Full-dome strobe, the one pattern every glowcap answers without question</td></tr>
+                <tr><td>I'm hungry</td><td><em>Illa lemm? Voss venn</em></td><td>"Is there a gift? We would eat"</td><td>Small pulses circling the heart-glow</td></tr>
+                <tr><td>Thank you</td><td><em>Miluu lemm</em></td><td>"A bright gift"</td><td>Warm bloom from the heart-glow up to the crown</td></tr>
+                <tr><td>You're welcome</td><td><em>Shessa lemm</em></td><td>"The grove gives"</td><td>Soft answering bloom, dimmer than the thanks</td></tr>
+                <tr><td>I'm sorry</td><td><em>Aa-hollo venn</em></td><td>"We were dark"</td><td>Dome dimmed, tendril extended in offering</td></tr>
+                <tr><td>It's alright / forgiven</td><td><em>Ee-milu venn</em></td><td>"We are lit again"</td><td>Taking the offered tendril, then a shared slow pulse</td></tr>
+                <tr><td>Goodnight</td><td><em>Hesh miluu</em></td><td>"Rest brightly"</td><td>Lights banked low and slow, like embers</td></tr>
+                <tr><td>Be careful</td><td><em>Wesshi sylvenn</em></td><td>"The forest holds strangers"</td><td>Quick amber flickers at the rim, hushed hum</td></tr>
+                <tr><td>I love you</td><td><em>Luvenn</em></td><td>"Two hearts in sync"</td><td>Touch register only: tendrils intertwined while both heart-glows pulse in matched rhythm, never said in open light</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="scene">
+            <h3>A Note on Nimbus and Lembas</h3>
+            <ul>
+              <li>Between bonded siblings, most of this shrinks to almost nothing. A lifetime of shared light means Lembas can answer Nimbus with a single flicker where a stranger would need the full phrase.</li>
+              <li>The long forms above are what glowcaps call <em>wesshi-ume</em>, "stranger-words": the careful, complete way of speaking kept for anyone whose light you cannot yet read.</li>
+            </ul>
+          </div>
+
+          <details class="markup">
+            <summary>Reveal Discord markup <span class="chev">&#9662;</span></summary>
+            <div class="markup-body">
+              <p class="markup-note">Copy this and paste straight into Discord.</p>
+<pre id="md-thalume">## Thalume ("dome-light")
+The tongue of the glowcap folk of the Veiled Forest, spoken by perhaps a few hundred individuals and never heard beyond the treeline. Spoken by Nimbus and his brother Lembas.
+
+### Three Channels, One Language
+Every full utterance in Thalume uses all three at once, the way humans use words, tone, and facial expression:
+- **The Bloom (light).** Meaning lives in patterns pulsed across the dome. Vocabulary is spatial: a word is a shape of light, its position on the dome acting like a case marking. Something displayed at the crown is a subject; something rippling toward the rim is an object or destination.
+- **The Hum (sound).** A soft resonance from the bell rim carries the grammar: tense, mood, and emotional register. The rim lights flicker in time with it, like a visible metronome.
+- **The Thread (touch).** Tendril-to-tendril contact is the intimate register of exact thoughts, used for true names, grief, and anything not meant for the wider grove. Two glowcaps with intertwined tendrils are having a private conversation in the middle of a public one. The more public display of this form of language is telepathic communication done at a distance, which is more formal and used for communicating with outsiders.
+
+### Phonology
+Because glowcaps have no hard mouthparts, the hummed component has no plosives at all: no *p, b, t, d, k,* or *g*. Everything is made of soft continuants (*m, n, l, s, sh, th, v, w, h*) and long vowels.
+- Doubled vowels mark intensity or brightness: *milu* is "light," *miluu* is "blazing light."
+- The overall sound is somewhere between wind chimes and a cat's purr.
+
+### Tense Is a Color, Not a Word
+- Past: amber (*aa-*)
+- Present: blue-white (*ee-*)
+- Future: violet (*yy-*)
+A glowcap describing something that never happened and never will simply goes dark mid-sentence.
+
+### There Is No Word for "I"
+The smallest pronoun is *venn*, "we-of-two": an acknowledgment of oneness in connection during telepathic communication.
+- Glowcaps bud in sibling pairs and think of themselves as half of something. Nimbus, speaking of himself, would literally say "the Nimbus-half of *venn*."
+- A glowcap whose sibling has died uses the mourning pronoun *ven-hollo*, "we-of-two, one dark," for the rest of their life.
+- This makes "brother" nearly redundant in Thalume; the language assumes it.
+
+### There Is No Word for a Lie
+Because of the abundance of telepathic communication, lying is nonexistent and nearly impossible to conceive for a glowcap. They don't understand the purpose of a lie and see it merely as an inaccuracy, a sign of foolishness and ineffective communication. At that point, you might as well take the time and effort to read each other's minds.
+
+### Lexicon
+- *venn* — we-of-two (basic pronoun)
+- *shessa* — the grove-mind; everyone currently in light-range
+- *milu / miluu* — light / brilliant light
+- *hollo* — darkness, absence; also silence
+- *thal* — the dome or cap; by extension, the self's "face"
+- *ume* — a pulse, a spoken thing, a word
+- *nimm* — rain-haze, the soft glow of mist (root of Nimbus's name)
+- *lemm* — nourishment shared freely, a gift of food (root of Lembas's name)
+- *sylvenn* — the forest, literally "the many-of-two"
+- *wesshi* — a stranger, literally "one whose light we cannot read"
+- *hallume* — a story, literally "dark-and-light," since stories require both
+
+### Sample Phrases
+**Greeting a friend:**
+&gt; *Miluu venn shessa* — "Brightly we-of-two join the grove."
+&gt; Delivered as a slow double-pulse at the crown of the dome, warm rim-hum, one tendril extended.
+
+**Greeting a stranger (*wesshi*):**
+&gt; *Aa-milu?* — Roughly, "Was your light ever seen here before?"
+&gt; A cautious single pulse, low and amber.
+
+### Writing
+Thalume script mimics the body: vertical hanging lines (tendrils) strung with dots and knots (light beads), read top to bottom.
+- A written word looks like a strand of tendrils with lights caught in it.
+- Books are woven curtains; reading one properly means running a tendril down each strand, so the script is as much braille as text.
+
+### True Names
+True names are the one thing never spoken aloud. Each glowcap's true name is the constellation displayed inside their dome, unique from budding, and it can only be given by touch.
+"Nimbus" and "Lembas" are just the pronounceable outer names; their real names are star maps only each other has fully read.
+
+### The Echo Principle
+Glowcaps do not have flat words for "yes" and "no." Answers are built on **echoing**:
+- **Agreement** means catching the asker's light pattern and pulsing it back *brighter*. Enthusiastic agreement returns the pattern brighter and faster.
+- **Refusal or denial** means letting the asker's pattern land on your dome and *fade to dark* without an echo.
+- **Uncertainty** is a broken, flickering half-echo.
+The spoken words below accompany these light responses; among glowcaps the echo alone is often enough.
+
+### New Vocabulary
+- *illa* — question marker; a spiral pulse plus rising hum, opens any question
+- *navv* — to drift toward, to come
+- *sull* — to drift away, to leave
+- *hesh* — to rest, to furl one's tendrils; sleep
+- *voss* — to eat, to take food (contrast *lemm*, food freely given)
+- *luvv* — the heart-glow; the light at the center of the body
+- *luvenn* — two heart-glows pulsing in sync; love, deep bond
+- *nesh* — soon, nearly, almost within light-range
+- *ollu* — again, once more, re-echo
+
+### Common Answers
+- Yes — *Ee-milu* ("It is lit") — echo the asker's pattern, brighter
+- Emphatic yes — *Ee-miluu* ("It blazes") — fast, brilliant echo across the whole dome
+- No — *Ee-hollo* ("It is dark") — let the asker's pattern fade unanswered
+- Maybe — *Milu-hollo* ("Light-and-dark") — flickering half-echo
+- I don't know — *Ume wesshi venn* ("The word is a stranger to us") — slow dim ripple toward the rim
+- I understand — *Milu navv venn* ("The light reaches us") — steady, calm echo at the crown
+- Say it again — *Ollu, illa* ("Again, asking") — spiral pulse repeated twice
+- Wait — *Hesh ume* ("Rest the word") — rim lights hold steady, dome goes still
+- Soon — *Nesh, nesh* ("Near, near") — gentle pulses quickening in tempo
+- Never — *Yy-hollo* ("The future is dark") — dome deliberately extinguished for one full breath, the gravest answer a glowcap can give
+
+### Everyday Phrases
+- Come here — *Navv venn* ("Drift to us") — crown-ward ripple, pulling light inward like a beckoning hand
+- I have to go — *Sull venn, aa-lemm* ("We drift away; it was a gift") — rim-ward ripple, warm amber fade
+- Help! — *Shessa! Hollo venn!* ("Grove! We are dimming!") — full-dome strobe, the one pattern every glowcap answers without question
+- I'm hungry — *Illa lemm? Voss venn* ("Is there a gift? We would eat") — small pulses circling the heart-glow
+- Thank you — *Miluu lemm* ("A bright gift") — warm bloom from the heart-glow up to the crown
+- You're welcome — *Shessa lemm* ("The grove gives") — soft answering bloom, dimmer than the thanks
+- I'm sorry — *Aa-hollo venn* ("We were dark") — dome dimmed, tendril extended in offering
+- It's alright / forgiven — *Ee-milu venn* ("We are lit again") — taking the offered tendril, then a shared slow pulse
+- Goodnight — *Hesh miluu* ("Rest brightly") — lights banked low and slow, like embers
+- Be careful — *Wesshi sylvenn* ("The forest holds strangers") — quick amber flickers at the rim, hushed hum
+- I love you — *Luvenn* ("Two hearts in sync") — touch register only: tendrils intertwined while both heart-glows pulse in matched rhythm, never said in open light
+
+### A Note on Nimbus and Lembas
+Between bonded siblings, most of this shrinks to almost nothing. A lifetime of shared light means Lembas can answer Nimbus with a single flicker where a stranger would need the full phrase. The long forms above are what glowcaps call *wesshi-ume*, "stranger-words": the careful, complete way of speaking kept for anyone whose light you cannot yet read.</pre>
+              <button class="copy" type="button" data-target="md-thalume" onclick="copyMarkup(this)">Copy markup</button>
+            </div>
+          </details>
+
+        </div>
+      </details>
+
     </section>
 
-    <p class="foot">Session Zero through Session X await their entries.</p>
+    <p class="foot">Session Zero is logged. Sessions 0.5 and I through X await their entries.</p>
   </main>
 
 <script>
