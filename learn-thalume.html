@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn Thalume</title>
+<style>
+  :root{
+    --deep:#070d18;
+    --pool:#0c1526;
+    --card:#111d33;
+    --card-edge:#1d2f4d;
+    --glow:#9fd4ff;
+    --glow-bright:#d8efff;
+    --amber:#f2b263;
+    --violet:#b79bff;
+    --text:#cfe0f0;
+    --dim:#76890f;
+    --dim:#7d92ab;
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(1200px 600px at 50% -10%, #12213c 0%, var(--deep) 60%);
+    color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    line-height:1.55;
+    padding-bottom:60px;
+    overflow-x:hidden;
+  }
+  /* floating spores */
+  .spore{position:fixed;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle, rgba(242,178,99,.9), rgba(242,178,99,0) 70%);
+    animation:drift linear infinite;}
+  @keyframes drift{
+    0%{transform:translateY(20vh);opacity:0}
+    15%{opacity:.7}
+    85%{opacity:.5}
+    100%{transform:translateY(-110vh);opacity:0}
+  }
+
+  header{position:relative;z-index:1;text-align:center;padding:34px 16px 6px}
+  /* the dome */
+  .dome{width:190px;height:95px;margin:0 auto;position:relative;
+    border-radius:190px 190px 0 0;
+    background:
+      radial-gradient(60px 40px at 62% 55%, rgba(183,155,255,.35), transparent 70%),
+      radial-gradient(90px 60px at 40% 70%, rgba(159,212,255,.28), transparent 70%),
+      linear-gradient(180deg, rgba(159,212,255,.16), rgba(159,212,255,.04));
+    border:1px solid rgba(159,212,255,.35);
+    border-bottom:none;
+    box-shadow:0 0 40px rgba(159,212,255,.18), inset 0 6px 24px rgba(216,239,255,.15);
+  }
+  .dome .star{position:absolute;background:var(--glow-bright);border-radius:50%;
+    animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+  .rim{width:230px;margin:-2px auto 0;display:flex;justify-content:space-between;padding:0 4px}
+  .rim i{width:7px;height:7px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 8px var(--amber), 0 0 18px rgba(242,178,99,.6);
+    animation:rimpulse 2.6s ease-in-out infinite;}
+  @keyframes rimpulse{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+
+  h1{margin-top:20px;font-weight:600;letter-spacing:.35em;text-transform:lowercase;
+    color:var(--glow-bright);font-size:clamp(26px,5vw,38px);
+    text-shadow:0 0 18px rgba(159,212,255,.55);}
+  .tagline{color:var(--dim);font-size:14px;letter-spacing:.08em;margin-top:6px}
+
+  nav{position:relative;z-index:1;display:flex;justify-content:center;gap:8px;margin:26px 0 8px;flex-wrap:wrap}
+  nav button{
+    background:transparent;color:var(--dim);border:1px solid var(--card-edge);
+    padding:9px 20px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+    cursor:pointer;transition:all .25s;font-family:inherit;}
+  nav button:hover{color:var(--glow)}
+  nav button.on{color:var(--deep);background:var(--glow);border-color:var(--glow);
+    box-shadow:0 0 18px rgba(159,212,255,.45);font-weight:600;}
+  nav button:focus-visible,.btn:focus-visible,.choice:focus-visible,.flashcard:focus-visible{
+    outline:2px solid var(--glow-bright);outline-offset:3px}
+
+  main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:12px 16px}
+  section{display:none}
+  section.on{display:block;animation:rise .4s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ---------- flashcards ---------- */
+  .deck-controls{display:flex;justify-content:center;gap:8px;margin:10px 0 18px;flex-wrap:wrap}
+  .btn{background:var(--card);border:1px solid var(--card-edge);color:var(--text);
+    padding:9px 16px;border-radius:12px;cursor:pointer;font-size:14px;font-family:inherit;
+    transition:border-color .2s, box-shadow .2s;}
+  .btn:hover{border-color:var(--glow);box-shadow:0 0 12px rgba(159,212,255,.25)}
+  .btn.primary{background:var(--glow);color:var(--deep);border-color:var(--glow);font-weight:600}
+
+  .flashcard{perspective:1200px;cursor:pointer;margin:0 auto;max-width:520px;height:300px;position:relative}
+  .fc-inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.4,.1,.2,1);transform-style:preserve-3d}
+  .flashcard.flipped .fc-inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border-radius:var(--radius);border:1px solid var(--card-edge);
+    background:linear-gradient(180deg,#13223c, var(--card));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:26px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.45);}
+  .face.back{transform:rotateY(180deg)}
+  .cat{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+  .word{font-size:clamp(28px,6vw,40px);color:var(--glow-bright);font-style:italic;
+    text-shadow:0 0 22px rgba(159,212,255,.5)}
+  .meaning{font-size:clamp(20px,4.5vw,26px);color:var(--glow-bright)}
+  .literal{color:var(--amber);font-size:15px;margin-top:12px;font-style:italic}
+  .pron{color:var(--dim);font-size:14px;letter-spacing:.08em;margin-top:10px}
+  .delivery{color:var(--dim);font-size:14px;margin-top:14px;max-width:420px}
+  .hint{color:var(--dim);font-size:12px;letter-spacing:.1em;margin-top:18px}
+  .counter{text-align:center;color:var(--dim);font-size:13px;margin-top:16px;letter-spacing:.1em}
+  .fc-nav{display:flex;justify-content:center;gap:10px;margin-top:16px}
+
+  /* card rim dots — driven by the pattern engine, not CSS animation */
+  .cardrim{display:flex;gap:10px;margin-bottom:16px}
+  .cardrim i{width:7px;height:7px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 8px var(--amber);animation:none;
+    transition:opacity .28s ease, transform .28s ease, box-shadow .28s ease, background .4s ease}
+
+  /* ---------- quiz ---------- */
+  .quiz-box{background:linear-gradient(180deg,#13223c,var(--card));border:1px solid var(--card-edge);
+    border-radius:var(--radius);padding:28px 22px;max-width:520px;margin:0 auto;
+    box-shadow:0 12px 40px rgba(0,0,0,.45);text-align:center}
+  .q-prompt{font-size:14px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase}
+  .q-word{font-size:clamp(26px,5.5vw,34px);color:var(--glow-bright);font-style:italic;margin:14px 0 22px;
+    text-shadow:0 0 20px rgba(159,212,255,.5)}
+  .choices{display:grid;gap:10px}
+  .choice{background:var(--pool);border:1px solid var(--card-edge);color:var(--text);
+    border-radius:12px;padding:13px 14px;cursor:pointer;font-size:15px;font-family:inherit;
+    transition:all .2s;text-align:left}
+  .choice:hover:not(:disabled){border-color:var(--glow)}
+  .choice:disabled{cursor:default;opacity:.85}
+  .choice.right{border-color:var(--glow);background:rgba(159,212,255,.14);
+    box-shadow:0 0 16px rgba(159,212,255,.35);color:var(--glow-bright)}
+  .choice.wrong{border-color:#5b3a4a;background:rgba(20,10,18,.6);color:#8d7b88}
+  .verdict{margin-top:18px;min-height:52px;font-size:15px}
+  .verdict .echo{font-style:italic;font-weight:600}
+  .verdict.good .echo{color:var(--glow-bright);text-shadow:0 0 14px rgba(159,212,255,.6)}
+  .verdict.bad .echo{color:var(--amber)}
+  .scorebar{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;
+    max-width:520px;margin:14px auto 0;letter-spacing:.08em}
+
+  /* ---------- reference ---------- */
+  .ref{background:linear-gradient(180deg,#13223c,var(--card));border:1px solid var(--card-edge);
+    border-radius:var(--radius);padding:22px;margin-bottom:16px}
+  .ref h2{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--glow);margin-bottom:12px}
+  .phrase-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px solid rgba(29,47,77,.6);font-size:14.5px}
+  .phrase-row:last-child{border-bottom:none;padding-bottom:0}
+  .phrase-row .th{color:var(--glow-bright);font-style:italic;flex:1}
+  .phrase-row .en{color:var(--text);text-align:right;flex:1}
+  .ref p{font-size:14.5px;color:var(--text);margin-bottom:8px}
+  .ref p:last-child{margin-bottom:0}
+  .tense{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;margin-right:6px}
+  .t-past{background:rgba(242,178,99,.15);color:var(--amber);border:1px solid rgba(242,178,99,.4)}
+  .t-pres{background:rgba(159,212,255,.15);color:var(--glow);border:1px solid rgba(159,212,255,.4)}
+  .t-fut{background:rgba(183,155,255,.15);color:var(--violet);border:1px solid rgba(183,155,255,.4)}
+  .ref em{color:var(--glow-bright)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="dome" id="dome"></div>
+  <div class="rim" aria-hidden="true">
+    <i></i><i style="animation-delay:.2s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.6s"></i><i style="animation-delay:.8s"></i><i style="animation-delay:1s"></i><i style="animation-delay:1.2s"></i><i style="animation-delay:1.4s"></i><i style="animation-delay:1.6s"></i><i style="animation-delay:1.8s"></i>
+  </div>
+  <h1>thalume</h1>
+  <div class="tagline">the dome-light tongue of the Veiled Forest</div>
+</header>
+
+<nav>
+  <button class="on" data-tab="cards">Flashcards</button>
+  <button data-tab="quiz">Echo Quiz</button>
+  <button data-tab="ref">Grove Notes</button>
+</nav>
+
+<main>
+
+  <!-- FLASHCARDS -->
+  <section id="cards" class="on">
+    <div class="deck-controls">
+      <button class="btn" id="deckWords">Words</button>
+      <button class="btn" id="deckPhrases">Phrases</button>
+      <button class="btn" id="deckAll">Everything</button>
+      <button class="btn" id="shuffleBtn">Shuffle</button>
+      <button class="btn" id="dirBtn">Front: Thalume</button>
+    </div>
+
+    <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Flashcard, press to flip">
+      <div class="fc-inner" id="fcInner">
+        <div class="face front">
+          <div class="cardrim" aria-hidden="true"><i></i><i style="animation-delay:.3s"></i><i style="animation-delay:.6s"></i><i style="animation-delay:.9s"></i><i style="animation-delay:1.2s"></i></div>
+          <div class="cat" id="fCat"></div>
+          <div class="word" id="fWord"></div>
+          <div class="pron" id="fPron"></div>
+          <div class="hint">tap to flip</div>
+        </div>
+        <div class="face back">
+          <div class="cat" id="bCat"></div>
+          <div class="meaning" id="bMeaning"></div>
+          <div class="pron" id="bPron"></div>
+          <div class="literal" id="bLiteral"></div>
+          <div class="delivery" id="bDelivery"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-nav">
+      <button class="btn" id="prevBtn">&#8592; Back</button>
+      <button class="btn primary" id="nextBtn">Next &#8594;</button>
+    </div>
+    <div class="counter" id="counter"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <div class="quiz-box">
+      <div class="q-prompt" id="qPrompt">What does this mean?</div>
+      <div class="q-word" id="qWord"></div>
+      <div class="pron" id="qPron" style="margin:-14px 0 20px"></div>
+      <div class="choices" id="choices"></div>
+      <div class="verdict" id="verdict"></div>
+      <button class="btn primary" id="qNext" style="display:none;margin-top:6px">Next pulse &#8594;</button>
+    </div>
+    <div class="scorebar">
+      <span id="score">Bright echoes: 0</span>
+      <span id="streak">Streak: 0</span>
+      <button class="btn" id="qReset" style="padding:4px 12px;font-size:12px">Reset</button>
+    </div>
+  </section>
+
+  <!-- REFERENCE -->
+  <section id="ref">
+    <div class="ref">
+      <h2>Common phrases</h2>
+      <div id="phraseList"></div>
+    </div>
+    <div class="ref">
+      <h2>The Echo Principle</h2>
+      <p>Glowcaps have no flat yes or no. <em>Agreement</em> echoes the asker's light pattern back brighter. <em>Refusal</em> lets the pattern fade to dark. <em>Uncertainty</em> is a broken, flickering half-echo.</p>
+    </div>
+    <div class="ref">
+      <h2>Tense is a color</h2>
+      <p>
+        <span class="tense t-past">aa- &nbsp;past &middot; amber</span>
+        <span class="tense t-pres">ee- &nbsp;present &middot; blue-white</span>
+        <span class="tense t-fut">yy- &nbsp;future &middot; violet</span>
+      </p>
+      <p>Going dark mid-sentence marks a thing that never happened and never will. <em>Yy-hollo</em>, a deliberately extinguished dome, is the gravest "never" a glowcap can give.</p>
+    </div>
+    <div class="ref">
+      <h2>Three channels</h2>
+      <p><em>The Bloom</em> — light patterns on the dome carry vocabulary.</p>
+      <p><em>The Hum</em> — rim resonance carries grammar and mood.</p>
+      <p><em>The Thread</em> — tendril touch is the intimate register: true names, grief, and <em>luvenn</em>.</p>
+    </div>
+    <div class="ref">
+      <h2>Sound rules</h2>
+      <p>No plosives — no p, b, t, d, k, or g. Only soft continuants and long vowels.</p>
+      <p>Doubled vowels mean brightness or intensity: <em>milu</em> is light, <em>miluu</em> is blazing light.</p>
+    </div>
+    <div class="ref">
+      <h2>How to say it</h2>
+      <p>Vowels are always the same: <em>a</em> = "ah" &middot; <em>e</em> = "eh" &middot; <em>i</em> = "ee" &middot; <em>o</em> = "oh" &middot; <em>u</em> = "oo" &middot; <em>y</em> = "yuh"</p>
+      <p>Hold a doubled vowel about twice as long: <em>aa-</em> is a long "aah," <em>miluu</em> ends on a held "ooo."</p>
+      <p>Doubled consonants are hummed or held — <em>venn</em> ends on a lingering hum, <em>navv</em> on a buzzing v. Everything is spoken softly and unhurried, closer to singing than talking.</p>
+    </div>
+    <div class="ref">
+      <h2>There is no word for "I"</h2>
+      <p>The smallest pronoun is <em>venn</em>, we-of-two. Glowcaps bud in sibling pairs — Nimbus speaks of himself as "the Nimbus-half of venn." A glowcap who has lost their sibling uses <em>ven-hollo</em>, we-of-two one dark, for the rest of their life.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ---------------- data ---------------- */
+const WORDS = [
+  {t:"venn", p:"VEHN (hum the n)", m:"we-of-two", lit:"the smallest pronoun; glowcaps have no word for 'I'", d:""},
+  {t:"shessa", p:"SHEH-sah", m:"the grove-mind", lit:"everyone currently in light-range", d:""},
+  {t:"milu", p:"MEE-loo", m:"light", lit:"", d:""},
+  {t:"miluu", p:"mee-LOOO (hold the oo)", m:"brilliant, blazing light", lit:"doubled vowel = intensity", d:""},
+  {t:"hollo", p:"HOH-loh", m:"darkness, absence, silence", lit:"", d:""},
+  {t:"thal", p:"THAHL (soft th, as in 'this')", m:"the dome or cap", lit:"by extension, the self's 'face'", d:""},
+  {t:"ume", p:"OO-meh", m:"a pulse, a spoken thing, a word", lit:"", d:""},
+  {t:"nimm", p:"NEEM (hum the m)", m:"rain-haze, the glow of mist", lit:"the root of Nimbus's name", d:""},
+  {t:"lemm", p:"LEHM (hum the m)", m:"nourishment shared freely, a gift of food", lit:"the root of Lembas's name", d:""},
+  {t:"sylvenn", p:"sil-VEHN", m:"the forest", lit:"literally 'the many-of-two'", d:""},
+  {t:"wesshi", p:"WEH-shee", m:"a stranger", lit:"one whose light we cannot read", d:""},
+  {t:"hallume", p:"hah-LOO-meh", m:"a story", lit:"literally 'dark-and-light' — stories require both", d:""},
+  {t:"illa", p:"EE-lah", m:"question marker", lit:"a spiral pulse plus rising hum", d:""},
+  {t:"navv", p:"NAHV (hold the v)", m:"to drift toward, to come", lit:"", d:""},
+  {t:"sull", p:"SOOL (hold the l)", m:"to drift away, to leave", lit:"", d:""},
+  {t:"hesh", p:"HEHSH", m:"to rest, to furl one's tendrils; sleep", lit:"", d:""},
+  {t:"voss", p:"VOHSS (let the s hiss)", m:"to eat, to take food", lit:"contrast lemm, food freely given", d:""},
+  {t:"luvv", p:"LOOV (hold the v)", m:"the heart-glow", lit:"the light at the center of the body", d:""},
+  {t:"luvenn", p:"loo-VEHN", m:"love, deep bond", lit:"two heart-glows pulsing in sync", d:"Touch register only — never said in open light"},
+  {t:"nesh", p:"NEHSH", m:"soon, nearly", lit:"almost within light-range", d:""},
+  {t:"ollu", p:"OH-loo", m:"again, once more", lit:"to re-echo", d:""}
+];
+const PHRASES = [
+  {t:"Ee-milu", p:"ee MEE-loo", m:"Yes", lit:"'It is lit'", d:"Echo the asker's pattern back, brighter"},
+  {t:"Ee-miluu", p:"ee mee-LOOO", m:"Emphatic yes", lit:"'It blazes'", d:"Fast, brilliant echo across the whole dome"},
+  {t:"Ee-hollo", p:"ee HOH-loh", m:"No", lit:"'It is dark'", d:"Let the asker's pattern fade unanswered"},
+  {t:"Milu-hollo", p:"MEE-loo HOH-loh", m:"Maybe", lit:"'Light-and-dark'", d:"A flickering half-echo"},
+  {t:"Ume wesshi venn", p:"OO-meh WEH-shee VEHN", m:"I don't know", lit:"'The word is a stranger to us'", d:"Slow dim ripple toward the rim"},
+  {t:"Milu navv venn", p:"MEE-loo NAHV VEHN", m:"I understand", lit:"'The light reaches us'", d:"Steady, calm echo at the crown"},
+  {t:"Ollu, illa", p:"OH-loo, EE-lah", m:"Say it again", lit:"'Again, asking'", d:"Spiral pulse repeated twice"},
+  {t:"Hesh ume", p:"HEHSH OO-meh", m:"Wait", lit:"'Rest the word'", d:"Rim lights hold steady, dome goes still"},
+  {t:"Nesh, nesh", p:"NEHSH, NEHSH", m:"Soon", lit:"'Near, near'", d:"Gentle pulses quickening in tempo"},
+  {t:"Yy-hollo", p:"yuu HOH-loh (hold the yuu)", m:"Never", lit:"'The future is dark'", d:"Dome deliberately extinguished for one full breath — the gravest answer"},
+  {t:"Navv venn", p:"NAHV VEHN", m:"Come here", lit:"'Drift to us'", d:"Crown-ward ripple, pulling light inward"},
+  {t:"Sull venn, aa-lemm", p:"SOOL VEHN, aah LEHM", m:"I have to go", lit:"'We drift away; it was a gift'", d:"Rim-ward ripple, warm amber fade"},
+  {t:"Shessa! Hollo venn!", p:"SHEH-sah! HOH-loh VEHN!", m:"Help!", lit:"'Grove! We are dimming!'", d:"Full-dome strobe — answered without question"},
+  {t:"Illa lemm? Voss venn", p:"EE-lah LEHM? VOHSS VEHN", m:"I'm hungry", lit:"'Is there a gift? We would eat'", d:"Small pulses circling the heart-glow"},
+  {t:"Miluu lemm", p:"mee-LOOO LEHM", m:"Thank you", lit:"'A bright gift'", d:"Warm bloom from the heart-glow to the crown"},
+  {t:"Shessa lemm", p:"SHEH-sah LEHM", m:"You're welcome", lit:"'The grove gives'", d:"Soft answering bloom, dimmer than the thanks"},
+  {t:"Aa-hollo venn", p:"aah HOH-loh VEHN", m:"I'm sorry", lit:"'We were dark'", d:"Dome dimmed, tendril extended in offering"},
+  {t:"Ee-milu venn", p:"ee MEE-loo VEHN", m:"It's alright / forgiven", lit:"'We are lit again'", d:"Taking the offered tendril, a shared slow pulse"},
+  {t:"Hesh miluu", p:"HEHSH mee-LOOO", m:"Goodnight", lit:"'Rest brightly'", d:"Lights banked low and slow, like embers"},
+  {t:"Wesshi sylvenn", p:"WEH-shee sil-VEHN", m:"Be careful", lit:"'The forest holds strangers'", d:"Quick amber flickers at the rim, hushed hum"},
+  {t:"Miluu venn shessa", p:"mee-LOOO VEHN SHEH-sah", m:"Hello (to a friend)", lit:"'Brightly we-of-two join the grove'", d:"Slow double-pulse at the crown, one tendril extended"},
+  {t:"Aa-milu?", p:"aah MEE-loo?", m:"Hello (to a stranger)", lit:"'Was your light ever seen here before?'", d:"A cautious single pulse, low and amber"},
+  {t:"Luvenn", p:"loo-VEHN", m:"I love you", lit:"'Two hearts in sync'", d:"Touch only: tendrils intertwined, heart-glows in matched rhythm"}
+];
+WORDS.forEach(x=>x.cat="word");
+PHRASES.forEach(x=>x.cat="phrase");
+
+/* ---------------- grove notes phrase list ---------------- */
+const pl=document.getElementById('phraseList');
+PHRASES.forEach(x=>{
+  const row=document.createElement('div');row.className='phrase-row';
+  const th=document.createElement('span');th.className='th';th.textContent=x.t;
+  const en=document.createElement('span');en.className='en';en.textContent=x.m;
+  row.appendChild(th);row.appendChild(en);
+  pl.appendChild(row);
+});
+
+/* ---------------- dome stars ---------------- */
+const dome=document.getElementById('dome');
+for(let i=0;i<26;i++){
+  const s=document.createElement('span');s.className='star';
+  const sz=(Math.random()*2.2+1).toFixed(1);
+  s.style.width=sz+'px';s.style.height=sz+'px';
+  s.style.left=(8+Math.random()*84)+'%';
+  s.style.top=(12+Math.random()*70)+'%';
+  s.style.animationDelay=(Math.random()*3).toFixed(2)+'s';
+  dome.appendChild(s);
+}
+/* floating spores */
+for(let i=0;i<14;i++){
+  const p=document.createElement('span');p.className='spore';
+  const sz=Math.random()*5+3;
+  p.style.width=sz+'px';p.style.height=sz+'px';
+  p.style.left=Math.random()*100+'vw';
+  p.style.bottom='-20px';
+  p.style.animationDuration=(Math.random()*22+16)+'s';
+  p.style.animationDelay=(-Math.random()*30)+'s';
+  if(Math.random()<.4)p.style.background='radial-gradient(circle, rgba(159,212,255,.9), rgba(159,212,255,0) 70%)';
+  document.body.appendChild(p);
+}
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('nav button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('main section').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById(b.dataset.tab).classList.add('on');
+  });
+});
+
+/* ---------------- flashcards ---------------- */
+let deck=[...WORDS,...PHRASES], idx=0, frontIsThalume=true;
+const fc=document.getElementById('flashcard'), fcInner=document.getElementById('fcInner');
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------------- light-pattern engine ---------------- */
+/* Each pattern: c = color, s = frames of 5 brightness values (0–1),
+   dt = ms per frame (or dts = per-frame ms), loop:false = hold last frame */
+const C={amber:'#f2b263',blue:'#9fd4ff',violet:'#b79bff',white:'#d8efff',heart:'#ffb3c8'};
+const PATTERNS={
+  idle:      {c:C.amber, dt:700, s:[[.5,.7,.9,.7,.5],[.7,.9,1,.9,.7],[.5,.7,.9,.7,.5],[.35,.5,.6,.5,.35]]},
+  echo:      {c:C.blue,  dt:480, s:[[.2,.2,.2,.2,.2],[1,1,1,1,1],[.55,.55,.55,.55,.55],[1,1,1,1,1],[.25,.25,.25,.25,.25]]},
+  blaze:     {c:C.blue,  dt:170, s:[[1,1,1,1,1],[.5,1,.5,1,.5],[1,.5,1,.5,1],[1,1,1,1,1]]},
+  fadeOut:   {c:C.blue,  dt:430, loop:false, s:[[1,1,1,1,1],[.7,.7,.7,.7,.7],[.45,.45,.45,.45,.45],[.25,.25,.25,.25,.25],[.1,.1,.1,.1,.1],[0,0,0,0,0]]},
+  flicker:   {c:C.white, dt:250, s:[[.8,.2,.6,.1,.7],[.2,.7,.1,.8,.3],[.6,.1,.8,.3,.1],[.1,.5,.2,.6,.8]]},
+  rippleOut: {c:C.blue,  dt:300, s:[[.8,.3,.1,.1,.1],[.3,.8,.3,.1,.1],[.1,.3,.8,.3,.1],[.1,.1,.3,.8,.3],[.1,.1,.1,.3,.8],[.1,.1,.1,.1,.3],[.1,.1,.1,.1,.1]]},
+  rippleOutAmber:{c:C.amber, dt:340, s:[[.8,.3,.1,.1,.1],[.3,.8,.3,.1,.1],[.1,.3,.8,.3,.1],[.1,.1,.3,.8,.3],[.1,.1,.1,.3,.8],[.1,.1,.1,.1,.3],[.1,.1,.1,.1,.1]]},
+  rippleIn:  {c:C.blue,  dt:280, s:[[.9,.2,.1,.2,.9],[.4,.9,.3,.9,.4],[.2,.5,1,.5,.2],[.1,.3,.7,.3,.1],[.1,.1,.3,.1,.1]]},
+  steady:    {c:C.blue,  dt:900, s:[[.5,.5,.5,.5,.5],[.9,.9,.9,.9,.9]]},
+  chase:     {c:C.blue,  dt:200, s:[[1,.2,.1,.1,.2],[.2,1,.2,.1,.1],[.1,.2,1,.2,.1],[.1,.1,.2,1,.2],[.2,.1,.1,.2,1]]},
+  hold:      {c:C.amber, dt:1400,s:[[.7,.7,.7,.7,.7],[.62,.62,.62,.62,.62]]},
+  quicken:   {c:C.blue,  dts:[600,450,330,240,170,120,120,900], s:[[.8,.8,.8,.8,.8],[.2,.2,.2,.2,.2],[.85,.85,.85,.85,.85],[.2,.2,.2,.2,.2],[.9,.9,.9,.9,.9],[.2,.2,.2,.2,.2],[1,1,1,1,1],[.15,.15,.15,.15,.15]]},
+  blackout:  {c:C.violet,dts:[500,1600,500,900], s:[[.6,.6,.6,.6,.6],[0,0,0,0,0],[.12,.12,.12,.12,.12],[.3,.3,.3,.3,.3]]},
+  strobe:    {c:C.white, dt:110, s:[[1,1,1,1,1],[.05,.05,.05,.05,.05]]},
+  heartCircle:{c:C.amber,dt:280, s:[[.2,.5,.9,.2,.2],[.2,.2,.9,.5,.2],[.2,.2,.9,.2,.5],[.5,.2,.9,.2,.2]]},
+  bloomUp:   {c:C.amber, dt:280, s:[[.1,.1,.9,.1,.1],[.2,.6,1,.6,.2],[.5,.9,1,.9,.5],[.8,1,1,1,.8],[.3,.4,.5,.4,.3]]},
+  bloomSoft: {c:C.amber, dt:380, s:[[.1,.1,.6,.1,.1],[.15,.4,.7,.4,.15],[.3,.55,.7,.55,.3],[.2,.3,.35,.3,.2]]},
+  dimOffer:  {c:C.amber, dt:900, s:[[.15,.15,.15,.15,.6],[.15,.15,.15,.15,.85]]},
+  sharedSlow:{c:C.blue,  dt:1200,s:[[.3,.3,.3,.3,.3],[.85,.85,.85,.85,.85]]},
+  embers:    {c:C.amber, dt:1500,s:[[.35,.25,.4,.3,.35],[.25,.35,.3,.4,.25]]},
+  alert:     {c:C.amber, dt:140, s:[[1,.2,1,.2,1],[.2,1,.2,1,.2],[1,1,.2,1,1],[.2,.2,1,.2,.2]]},
+  doublePulse:{c:C.blue, dts:[260,260,260,260,1300], s:[[1,1,1,1,1],[.3,.3,.3,.3,.3],[1,1,1,1,1],[.3,.3,.3,.3,.3],[.15,.15,.15,.15,.15]]},
+  singleLow: {c:C.amber, dts:[550,2200], s:[[.6,.6,.6,.6,.6],[.12,.12,.12,.12,.12]]},
+  heartbeat: {c:C.heart, dts:[190,150,190,1300], s:[[.1,.2,1,.2,.1],[.1,.15,.4,.15,.1],[.1,.2,1,.2,.1],[.05,.1,.2,.1,.05]]},
+  darkIdle:  {c:C.blue,  dt:1100,s:[[.07,.07,.07,.07,.07],[.14,.14,.14,.14,.14]]}
+};
+/* which pattern each entry displays, keyed by its Thalume text */
+const PATMAP={
+  /* words */
+  "venn":"doublePulse","shessa":"echo","milu":"steady","miluu":"blaze","hollo":"darkIdle",
+  "thal":"idle","ume":"steady","nimm":"idle","lemm":"bloomSoft","sylvenn":"idle",
+  "wesshi":"singleLow","hallume":"flicker","illa":"chase","navv":"rippleIn","sull":"rippleOut",
+  "hesh":"embers","voss":"heartCircle","luvv":"heartbeat","luvenn":"heartbeat","nesh":"quicken","ollu":"chase",
+  /* phrases */
+  "Ee-milu":"echo","Ee-miluu":"blaze","Ee-hollo":"fadeOut","Milu-hollo":"flicker",
+  "Ume wesshi venn":"rippleOut","Milu navv venn":"steady","Ollu, illa":"chase","Hesh ume":"hold",
+  "Nesh, nesh":"quicken","Yy-hollo":"blackout","Navv venn":"rippleIn","Sull venn, aa-lemm":"rippleOutAmber",
+  "Shessa! Hollo venn!":"strobe","Illa lemm? Voss venn":"heartCircle","Miluu lemm":"bloomUp",
+  "Shessa lemm":"bloomSoft","Aa-hollo venn":"dimOffer","Ee-milu venn":"sharedSlow","Hesh miluu":"embers",
+  "Wesshi sylvenn":"alert","Miluu venn shessa":"doublePulse","Aa-milu?":"singleLow","Luvenn":"heartbeat"
+};
+const rimDots=[...document.querySelectorAll('.cardrim i')];
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let patTimer=null;
+function setDots(b,color){
+  rimDots.forEach((d,i)=>{
+    const v=b[i];
+    d.style.background=color;
+    d.style.opacity=(.12+.88*v).toFixed(2);
+    d.style.transform='scale('+(0.7+0.6*v).toFixed(2)+')';
+    d.style.boxShadow='0 0 '+(4+11*v).toFixed(0)+'px '+color;
+  });
+}
+function playPattern(name){
+  if(patTimer){clearTimeout(patTimer);patTimer=null;}
+  const p=PATTERNS[name]||PATTERNS.idle;
+  if(reducedMotion){setDots(p.s[0],p.c);return;}
+  let f=0;
+  const step=()=>{
+    setDots(p.s[f],p.c);
+    const d=p.dts?p.dts[f]:p.dt;
+    f++;
+    if(f>=p.s.length){
+      if(p.loop===false){patTimer=null;return;}
+      f=0;
+    }
+    patTimer=setTimeout(step,d);
+  };
+  step();
+}
+
+function renderCard(){
+  const c=deck[idx];
+  fc.classList.remove('flipped');
+  const catLabel=c.cat==='word'?'Word':'Phrase';
+  document.getElementById('fCat').textContent=catLabel;
+  document.getElementById('bCat').textContent=catLabel;
+  const frontEl=document.getElementById('fWord');
+  const backEl=document.getElementById('bMeaning');
+  if(frontIsThalume){ frontEl.textContent=c.t; backEl.textContent=c.m; }
+  else { frontEl.textContent=c.m; backEl.textContent=c.t; }
+  backEl.style.fontStyle=frontIsThalume?'normal':'italic';
+  document.getElementById('fPron').textContent=frontIsThalume?(c.p||''):'';
+  document.getElementById('bPron').textContent=frontIsThalume?'':(c.p||'');
+  document.getElementById('bLiteral').textContent=c.lit||'';
+  document.getElementById('bDelivery').textContent=c.d||'';
+  document.getElementById('counter').textContent=(idx+1)+' / '+deck.length;
+  playPattern(PATMAP[c.t]||'idle');
+}
+fc.addEventListener('click',()=>fc.classList.toggle('flipped'));
+fc.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();fc.classList.toggle('flipped');}});
+document.getElementById('nextBtn').addEventListener('click',()=>{idx=(idx+1)%deck.length;renderCard();});
+document.getElementById('prevBtn').addEventListener('click',()=>{idx=(idx-1+deck.length)%deck.length;renderCard();});
+document.getElementById('shuffleBtn').addEventListener('click',()=>{shuffle(deck);idx=0;renderCard();});
+document.getElementById('dirBtn').addEventListener('click',e=>{
+  frontIsThalume=!frontIsThalume;
+  e.target.textContent='Front: '+(frontIsThalume?'Thalume':'English');
+  renderCard();
+});
+document.getElementById('deckWords').addEventListener('click',()=>{deck=[...WORDS];idx=0;renderCard();});
+document.getElementById('deckPhrases').addEventListener('click',()=>{deck=[...PHRASES];idx=0;renderCard();});
+document.getElementById('deckAll').addEventListener('click',()=>{deck=[...WORDS,...PHRASES];idx=0;renderCard();});
+renderCard();
+
+/* ---------------- quiz ---------------- */
+const ALL=[...WORDS,...PHRASES];
+let score=0,streak=0,current=null,askThalume=true;
+
+function newQuestion(){
+  document.getElementById('verdict').textContent='';
+  document.getElementById('verdict').className='verdict';
+  document.getElementById('qNext').style.display='none';
+  askThalume=Math.random()<0.6;
+  current=ALL[Math.floor(Math.random()*ALL.length)];
+  document.getElementById('qPrompt').textContent=askThalume?'What does this mean?':'How do you say this in Thalume?';
+  document.getElementById('qWord').textContent=askThalume?current.t:current.m;
+  document.getElementById('qPron').textContent=askThalume?(current.p||''):'';
+  const correct=askThalume?current.m:current.t;
+  const pool=ALL.filter(x=>x!==current);
+  shuffle(pool);
+  const opts=[correct,...pool.slice(0,3).map(x=>askThalume?x.m:x.t)];
+  shuffle(opts);
+  const box=document.getElementById('choices');box.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');b.className='choice';b.textContent=o;
+    if(!askThalume)b.style.fontStyle='italic';
+    b.addEventListener('click',()=>answer(b,o===correct,correct));
+    box.appendChild(b);
+  });
+}
+function answer(btn,right,correct){
+  document.querySelectorAll('.choice').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===correct)b.classList.add('right');
+    else if(b===btn && !right)b.classList.add('wrong');
+  });
+  const v=document.getElementById('verdict');
+  if(right){
+    score++;streak++;
+    v.className='verdict good';
+    v.innerHTML='<span class="echo">Ee-miluu!</span> &nbsp;Your echo comes back blazing.';
+  } else {
+    streak=0;
+    v.className='verdict bad';
+    v.innerHTML='<span class="echo">Milu-hollo.</span> &nbsp;A flickering half-echo — the grove repeats it for you.';
+  }
+  if(!askThalume && current.p){
+    v.innerHTML+='<div class="pron" style="margin-top:8px">'+current.t+' &middot; '+current.p+'</div>';
+  }
+  document.getElementById('score').textContent='Bright echoes: '+score;
+  document.getElementById('streak').textContent='Streak: '+streak;
+  document.getElementById('qNext').style.display='inline-block';
+}
+document.getElementById('qNext').addEventListener('click',newQuestion);
+document.getElementById('qReset').addEventListener('click',()=>{score=0;streak=0;
+  document.getElementById('score').textContent='Bright echoes: 0';
+  document.getElementById('streak').textContent='Streak: 0';
+  newQuestion();});
+newQuestion();
+</script>
+</body>
+</html>
